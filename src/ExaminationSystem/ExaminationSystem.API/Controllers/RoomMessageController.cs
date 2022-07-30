@@ -70,14 +70,16 @@ public class RoomMessageController : ControllerBase
         {
             if (!await _roomMessageManager.HasChattingPermissionAsync(userId, request.RoomId))
             {
-                return Ok("User is banned"); // TODO: choose appropriate status code
+                _logger.LogError("User doesn't have chatting permission");
+
+                return Forbid();
             }
         }
         catch (NotFoundException ex)
         {
             _logger.LogError(ex, $"User with id {userId} is not member of room {request.RoomId}");
 
-            return NotFound(ex.Message); // TODO: mb not suitable
+            return Forbid(ex.Message);
         }
 
         var messageCreateData = _mapper.Map<RoomMessageCreateData>(request);

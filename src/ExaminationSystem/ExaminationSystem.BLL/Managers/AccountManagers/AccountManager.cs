@@ -28,7 +28,6 @@ public class AccountManager : IAccountManager
     private readonly UrlHelper _urlHelper;
     private readonly UserManager<ApplicationUser> _userManager;
 
-    // TODO: вроде бы дядюшка Боб говорил про желательно 2 параметра в конструкторе (мб как-то пофиксить можно)))))
     public AccountManager(UserManager<ApplicationUser> userManager,
         ITokenManager tokenManager,
         IUnitOfWork unitOfWork,
@@ -245,7 +244,6 @@ public class AccountManager : IAccountManager
         var emailTemplate = await _templateManager.GetTemplateAsync(TemplateNames.EmailConfirmation);
         var defaultServerUrl = _urlHelper.ServerUrls.FirstOrDefault();
 
-        // TODO: а если метод нельзя будет менять и поменяется шаблон сообщения, что делать...как вынести (мб билдеры всякие напридумывать)? Think
         IDictionary<string, string> properties = new Dictionary<string, string>
         {
             { "BaseURL", defaultServerUrl! },
@@ -255,7 +253,6 @@ public class AccountManager : IAccountManager
         };
 
         emailTemplate = _templateManager.ReplaceTemplateProperty(emailTemplate, properties);
-
         var email = new EmailMessage(emails, "Registration", emailTemplate);
         await _emailManager.SendEmailAsync(email);
     }

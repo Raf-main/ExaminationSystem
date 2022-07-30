@@ -25,7 +25,8 @@ public class RoomController : ControllerBase
     public RoomController(IAccountManager accountManager,
         IRoomManager roomManager,
         IMapper mapper,
-        IRoomInviteManager roomInviteManager, ILogger<RoomController> logger)
+        IRoomInviteManager roomInviteManager, 
+        ILogger<RoomController> logger)
     {
         _accountManager = accountManager;
         _roomManager = roomManager;
@@ -162,7 +163,10 @@ public class RoomController : ControllerBase
         }
         catch (PermissionDeniedException ex)
         {
-            _logger.LogError(ex, $"Permission fo");
+            _logger.LogError(ex,
+                $"Permission denied for user with id {userId}, invite id {inviteId}, room id {roomId}");
+
+            return Forbid();
         }
 
         return Ok("Invite was successfully accepted");
@@ -188,7 +192,7 @@ public class RoomController : ControllerBase
         }
         catch (PermissionDeniedException ex)
         {
-            _logger.LogError(ex, $"Permission fo");
+            _logger.LogError(ex, $"Permission denied for user with id {userId}");
 
             return Forbid();
         }

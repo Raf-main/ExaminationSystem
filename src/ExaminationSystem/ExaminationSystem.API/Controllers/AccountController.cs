@@ -89,7 +89,7 @@ public class AccountController : ControllerBase
         }
         catch (ValidationException ex)
         {
-            _logger.LogError(ex, $"Validation errors during user registration");
+            _logger.LogError(ex, "Validation errors during user registration");
 
             return BadRequest(ex.ValidationErrors);
         }

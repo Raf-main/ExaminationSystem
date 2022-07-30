@@ -187,7 +187,7 @@ try
 }
 catch (Exception ex)
 {
-    if (Log.Logger is null || Log.Logger.GetType().Name is "SilentLogger" or "ReloadableLogger")
+    if (Log.Logger.GetType().Name is "SilentLogger" or "ReloadableLogger")
     {
         Log.Logger = new LoggerConfiguration()
             .WriteTo.Console()
