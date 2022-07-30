@@ -1,7 +1,7 @@
-﻿using System.Reflection;
-using System.Text;
+﻿using System.Text;
 using ExaminationSystem.BLL.Managers.FileManagers;
 using Microsoft.Extensions.Caching.Memory;
+using IHostingEnvironment = Microsoft.AspNetCore.Hosting.IHostingEnvironment;
 
 namespace ExaminationSystem.BLL.Managers.EmailManagers;
 
@@ -11,15 +11,11 @@ internal class TemplateManager : ITemplateManager
     private readonly IMemoryCache _memoryCache;
     private readonly string _templatesPath;
 
-    public TemplateManager(IFileManager fileManager, IMemoryCache memoryCache)
+    public TemplateManager(IFileManager fileManager, IMemoryCache memoryCache, IHostingEnvironment env)
     {
         _fileManager = fileManager;
         _memoryCache = memoryCache;
-
-        // TODO: change path and put separately in the utilities (reflection utils mb...)
-        var projectPath = Directory.GetParent(Directory.GetCurrentDirectory())!.FullName;
-        var templateProject = Assembly.GetExecutingAssembly().GetName().Name;
-        _templatesPath = Path.Combine(projectPath, templateProject!, "Managers", "EmailManagers", "Templates");
+        _templatesPath = Path.Combine(env.WebRootPath, "Templates");
     }
 
     public async Task<string> GetTemplateAsync(string templateName)

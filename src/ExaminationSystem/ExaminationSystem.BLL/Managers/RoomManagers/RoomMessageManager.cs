@@ -1,12 +1,10 @@
-﻿using System.Collections;
-using AutoMapper;
+﻿using AutoMapper;
 using ExaminationSystem.BLL.Helpers;
 using ExaminationSystem.BLL.Models;
 using ExaminationSystem.BLL.Models.Create;
 using ExaminationSystem.DAL.Entities;
 using ExaminationSystem.DAL.Helpers;
 using ExaminationSystem.DAL.Repositories.Interfaces;
-using Microsoft.EntityFrameworkCore;
 
 namespace ExaminationSystem.BLL.Managers.RoomManagers;
 

@@ -88,7 +88,6 @@ internal class RoomInviteManager : IRoomInviteManager
 
         if (invite.RoomId != roomId)
         {
-            // TODO: mb not permission denied?
             throw new PermissionDeniedException($"Invite with {inviteId} is not for room with id {roomId}");
         }
 
